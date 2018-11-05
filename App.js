@@ -6,12 +6,13 @@ const moment = require('moment');
 //Filters information for user inputted Bus Code
 function filteringData(array) {
     let retrievedData = [];
-    for(i = 0; i <= array.length - 1; i++) {
+    let numberOfBuses = Math.min(array.length,5);
+    for(i = 0; i <= numberOfBuses - 1; i++) {
         retrievedData.push(new importClass.BusArrival(array[i].vehicleId,array[i].timeToStation,array[i].lineName,array[i].towards))
     }
     if (retrievedData.length > 0) {
         retrievedData.sort(sortData);
-        retrievedData.forEach(function(element){
+        retrievedData.forEach(function(element) {
         console.log("Arriving " + moment().add(element.timeToStation,"seconds").fromNow() + " is bus " + element.lineName + " towards " + element.towards + " with vehicle id " + element.vehicleId )
         })
     } else {
@@ -47,11 +48,4 @@ function sortData(bus1,bus2) {
     }
 }
 
-function convertToMinutes(seconds){
-
-}
-
 runProgram();
-
-
-
