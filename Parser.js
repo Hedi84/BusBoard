@@ -11,3 +11,4 @@ function parseURL(callback) {
     })
 }
 
+exports.parseURL = parseURL;
