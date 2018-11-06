@@ -48,4 +48,26 @@ function sortData(bus1,bus2) {
     }
 }
 
-runProgram();
+function runProgramPostcode () {
+  postcode = askPostcode();
+  url = createPostcodeUrl;
+  importParse.parseURL(getLatLong, url);
+}
+
+function askPostcode () {
+  console.log("Please enter valid postcode:")
+  var postcode = readline.prompt();
+  return postcode
+}
+
+function createPostcodeUrl (postcode) {
+  var url = "api.postcodes.io/postcodes/" + postcode;
+  return url;
+}
+
+function getLatLong (array) {
+  console.log("reached latlong");
+  console.log(array);
+}
+
+runProgramPostcode();
