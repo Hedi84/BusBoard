@@ -34,15 +34,21 @@ function parseLatLongUrl (array) {
   importParse.parseURL(getNearestStops, url);
 }
 
-function getNearestStops (array) {
-  console.log(array[0]);
-  nearestStops = [];
-  // nearestStops.push(array[0]);
-  // nearestStops.push(array[1]);
-  // nearestStops.forEach(function(object) {
-  //   url = importApp.createsURL(object.id);
-  //   importParse.parseURL(importApp.filteringData, url);
-  // });
+function getNearestStops (object) {
+  // console.log(object.stopPoints)
+  createBusMessage(object.stopPoints[0]);
+  retrieveTimes(object.stopPoints[0]);
+  createBusMessage(object.stopPoints[1]);
+  retrieveTimes(object.stopPoints[1]);
+}
+
+function retrieveTimes (object) {
+  url = importApp.createsURL(object.id);
+  importParse.parseURL(importApp.filteringData, url);
+}
+
+function createBusMessage (object) {
+  console.log("The first two buses for bus stop " + object.commonName + "are:")
 }
 
 runProgramPostcode();
