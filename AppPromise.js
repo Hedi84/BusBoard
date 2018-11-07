@@ -1,5 +1,5 @@
 const readline = require('readline-sync');
-const importParse = require('./Parser.js');
+const importParse = require('./ParserPromise.js');
 const importClass = require('./BusArrival.js');
 const moment = require('moment');
 
@@ -22,10 +22,12 @@ function filteringData(array) {
 
 //Provides the filtering criteria for the Parser and returns the filtered information into an array.
 function runProgram() {
-    var busCode = userInput();
-    parse().then(function(){
-      return filteringData(data)
-    });
+  var busCode = userInput();
+  var url = createsURL(busCode);
+  importParse.parseURL(url)
+  .then(result => {
+    filteringData(result);
+  })
 }
 
 let parse = function () {
@@ -57,7 +59,7 @@ function sortData(bus1,bus2) {
     }
 }
 
-// runProgram();
+runProgram();
 
 exports.filteringData = filteringData;
 exports.createsURL = createsURL

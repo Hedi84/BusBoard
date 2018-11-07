@@ -6,13 +6,13 @@ const readline = require('readline-sync');
 function parseURL(url) {
   // console.log(url);
     var array = [];
-    got(url, { json: true })
+    return got(url, { json: true })
         .then(response => {
             array = response.body;
             // console.log('Reached Callback');
+            return array;
        })
-       return array
-       }
+}
 
 
 
