@@ -38,46 +38,54 @@ function parseLatLongUrl (array) {
 }
 
 function getNearestStops (object) {
-  // console.log(object.stopPoints)
-  createBusMessage(object);
   return retrieveTimes(object)
-    .then (result => {
+    .then(result => {
       return importApp.filteringData(result);
+    })
+    .then(busesArray => {
+      return {name : object.commonName, buses : busesArray}
     })
 }
 
 
 function retrieveTimes (object) {
-  // console.log(object.id);
   url = importApp.createsURL(object.id);
-  // console.log(url);
   return importParse.parseURL(url);
 }
 
 function createBusMessage (object) {
-  console.log("The first two buses for bus stop " + object.commonName + "are:")
+  return "The first two buses for bus stop " + object.commonName + "are:"
 }
 
+function postcode (postcode) {
+  // askPostcode()
+  //   .then(result => {
+  return createPostcodeUrl(postcode)
+    // })
+    .then (result => {
+      return importParse.parseURL(result)
+    })
+    .then (result => {
+      return getLatLong(result)
+    })
+    .then (result => {
+      return parseLatLongUrl(result)
+    })
+    .then(result => {
+      return importParse.parseURL(result)
+    })
+    .then (result => {
+      var array = []
+       return getNearestStops(result.stopPoints[0])
+       .then(object => {
+         array.push(object);
+         return getNearestStops(result.stopPoints[1])
+          .then (object2 => {
+             array.push(object2);
+             return array;
+          });
+        });
+      });
+}
 
-askPostcode()
-  .then(result => {
-    return createPostcodeUrl(result)
-  })
-  .then (result => {
-    return importParse.parseURL(result)
-  })
-  .then (result => {
-    return getLatLong(result)
-  })
-  .then (result => {
-    return parseLatLongUrl(result)
-  })
-  .then(result => {
-    return importParse.parseURL(result)
-  })
-  .then (result => {
-     getNearestStops(result.stopPoints[0])
-     .then (() => {
-       getNearestStops(result.stopPoints[1])
-     });
-  })
+  exports.postcode = postcode

@@ -10,14 +10,15 @@ function filteringData(array) {
     for(i = 0; i <= numberOfBuses - 1; i++) {
         retrievedData.push(new importClass.BusArrival(array[i].vehicleId,array[i].timeToStation,array[i].lineName,array[i].towards))
     }
-    if (retrievedData.length > 0) {
-        retrievedData.sort(sortData);
-        retrievedData.forEach(function(element) {
-        console.log("Arriving " + moment().add(element.timeToStation,"seconds").fromNow() + " is bus " + element.lineName + " towards " + element.towards + " with vehicle id " + element.vehicleId )
-        })
-    } else {
-        console.log(`There was no information for that bus code :'(`);
-    }
+    // if (retrievedData.length > 0) {
+    //     retrievedData.sort(sortData);
+    //     retrievedData.forEach(function(element) {
+    //       return "Arriving " + moment().add(element.timeToStation,"seconds").fromNow() + " is bus " + element.lineName + " towards " + element.towards + " with vehicle id " + element.vehicleId;
+    //     })
+    // } else {
+    //     return `There was no information for that bus code :'(`;
+    return retrievedData;
+    // }
 }
 
 //Provides the filtering criteria for the Parser and returns the filtered information into an array.
