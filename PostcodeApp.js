@@ -1,6 +1,5 @@
 const readline = require('readline-sync');
 const importParse = require('./ParserPromise.js');
-// const importClass = require('./BusArrival.js');
 const moment = require('moment');
 const importApp = require('./App.js');
 
@@ -58,10 +57,7 @@ function createBusMessage (object) {
 }
 
 function postcode (postcode) {
-  // askPostcode()
-  //   .then(result => {
   return createPostcodeUrl(postcode)
-    // })
     .then (result => {
       return importParse.parseURL(result)
     })
